@@ -27,7 +27,7 @@ public class RedirectTester {
         String[] configs = line.split(",");
         driver.get(configs[0]);
         System.out.print("From: " + configs[0] + " To: " + configs[1]);
-        if (driver.getCurrentUrl().matches(configs[1])) {
+        if (driver.getCurrentUrl().matches(configs[1] + "/?$")) {
             System.out.println(" OK");
         } else {
             System.err.println(" NG Current is " + driver.getCurrentUrl());
