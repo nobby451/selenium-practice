@@ -1,4 +1,4 @@
-package marrontan619.github.com;
+package com.github.marrontan619;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -27,7 +27,7 @@ public class RedirectTester {
         String[] configs = line.split(",");
         driver.get(configs[0]);
         System.out.print("From: " + configs[0] + " To: " + configs[1]);
-        if (driver.getCurrentUrl().equals(configs[1])) {
+        if (driver.getCurrentUrl().matches(configs[1])) {
             System.out.println(" OK");
         } else {
             System.err.println(" NG Current is " + driver.getCurrentUrl());
