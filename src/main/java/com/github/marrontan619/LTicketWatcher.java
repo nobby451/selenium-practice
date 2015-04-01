@@ -10,32 +10,60 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LTicketWatcher {
 
+    public static final int[] STAGES_PER_CITY = {4, 4, 2, 2, 3, 3, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2};
+    public static final int STAGES = 20,
+                               BUTTONS_PER_PAGE = 10;
+
     public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
 //        WebDriver driver = new HtmlUnitDriver();
         WebDriver driver = new ChromeDriver();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        System.out.println(canBuyTicket(driver));
+        canBuyTicket(driver);
         driver.close();
 
     }
 
     private static boolean canBuyTicket(WebDriver driver) {
-        // トップページ
-        driver.get("http://l-tike.com/lovelive-lt/");
+        for (int stageIndex = 0; stageIndex < STAGES; stageIndex++) {
+            int buttonIndex = stageIndex - BUTTONS_PER_PAGE < 0 ? stageIndex : stageIndex - BUTTONS_PER_PAGE;
+            for (int scheduleIndex = 0; scheduleIndex < STAGES_PER_CITY[stageIndex]; scheduleIndex++) {
+                // 検索結果
+                driver.get("http://l-tike.com/lovelive-lt/");
 
-        // 公演の検索結果から、詳細へ
-        driver.findElement(By.className("formInput")).findElement(By.tagName("img")).click();
+                // 2ページ目に行く場合
+                if (stageIndex >= BUTTONS_PER_PAGE) {
+                    driver.findElement(By.xpath("//div[@class=\"carrier\"]//a")).click();
+                }
+                // 公演の検索結果から、詳細へ
+                driver.findElements(By.xpath("//table[@class=\"formInput\"]//img[@src=\"http://img.l-tike.com/content/img/shared/button/white/orange/detail.gif\"]"))
+                                    .get(buttonIndex)
+                                    .click();
+                // カレンダーから、特定日時の公演へ
+                List<WebElement> links = driver.findElements(By.xpath("//div[@class=\"wrapper\"]//a"));
+                links.get(scheduleIndex).click();
 
-        // カレンダーから、特定日時の公演へ
-        List<WebElement> tables = driver.findElements(By.tagName("table"));
-        WebElement calenderTable = tables.get(3);
-        List<WebElement> links = calenderTable.findElements(By.tagName("li"));
-        links.get(1).click();
+                // 予定枚数終了になっているか
 
-        // 予定枚数終了になっているか
-        return driver.findElements(By.cssSelector(".disable")).size() == 0;
+                if (driver.findElements(By.className("disable")).size() == 0) {
+                    return true;
+                } else {
+                    List<WebElement> performanceInformation = driver.findElements(By.className("plain"));
+                    System.out.println(
+                            performanceInformation.get(0).getText() + " "
+                          + performanceInformation.get(1).getText() + " "
+                          + performanceInformation.get(2).getText() + " "
+                          + "望みなし"
+                            );
+                }
+            }
+            if (stageIndex == 19) {
+                stageIndex = 0;
+            }
+        }
+        return false;
+
     }
 
 }
