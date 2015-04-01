@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,7 +22,7 @@ public class LTicketWatcher {
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         canBuyTicket(driver);
-        driver.close();
+//        driver.close();
 
     }
 
@@ -47,6 +48,15 @@ public class LTicketWatcher {
                 // 予定枚数終了になっているか
 
                 if (driver.findElements(By.className("disable")).size() == 0) {
+                    List<WebElement> performanceInformation = driver.findElements(By.cssSelector(".performanceInformation, .plain"));
+                    JavascriptExecutor js = (JavascriptExecutor) driver;
+                    js.executeScript("alert(\""
+                                   + performanceInformation.get(0).getText() + " "
+                                   + performanceInformation.get(1).getText() + " "
+                                   + performanceInformation.get(2).getText() + " "
+                                   + performanceInformation.get(3).getText() + " "
+                                   + "復活！？"
+                                   + "\")");
                     return true;
                 } else {
                     List<WebElement> performanceInformation = driver.findElements(By.className("plain"));
