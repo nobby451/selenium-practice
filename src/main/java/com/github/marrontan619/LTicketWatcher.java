@@ -23,9 +23,7 @@ public class LTicketWatcher {
 
     private static boolean canBuyTicket(WebDriver driver) {
         // トップページ
-        driver.get("http://l-tike.com/");
-        driver.findElement(By.id("searchText")).sendKeys("ラブライブ");
-        driver.findElement(By.id("searchButton")).click();
+        driver.get("http://l-tike.com/lovelive-lt/");
 
         // 公演の検索結果から、詳細へ
         driver.findElement(By.className("formInput")).findElement(By.tagName("img")).click();
@@ -37,11 +35,7 @@ public class LTicketWatcher {
         links.get(1).click();
 
         // 予定枚数終了になっているか
-        if (driver.findElements(By.cssSelector(".send")).size() != 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return driver.findElements(By.cssSelector(".disable")).size() == 0;
     }
 
 }
