@@ -1,6 +1,7 @@
 package com.github.marrontan619;
 
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -16,9 +17,9 @@ public class LTicketWatcher {
                                BUTTONS_PER_PAGE = 10;
 
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
-//        WebDriver driver = new HtmlUnitDriver();
+        System.setProperty("webdriver.chrome.driver", ResourceBundle.getBundle("config").getString(("webdriver.chrome.driver")));
         WebDriver driver = new ChromeDriver();
+//        WebDriver driver = new HtmlUnitDriver();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         canBuyTicket(driver);
