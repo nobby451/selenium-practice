@@ -17,7 +17,7 @@ public class LTicketWatcher {
                                BUTTONS_PER_PAGE = 10;
 
     public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", ResourceBundle.getBundle("config").getString(("webdriver.chrome.driver")));
+        System.setProperty("webdriver.chrome.driver", ResourceBundle.getBundle("config").getString("webdriver.chrome.driver"));
         WebDriver driver = new ChromeDriver();
 //        WebDriver driver = new HtmlUnitDriver();
 
