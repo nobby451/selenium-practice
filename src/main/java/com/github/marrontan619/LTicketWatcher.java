@@ -50,14 +50,19 @@ public class LTicketWatcher {
 
                 if (driver.findElements(By.className("disable")).size() == 0) {
                     List<WebElement> performanceInformation = driver.findElements(By.cssSelector(".performanceInformation, .plain"));
+                    StringBuilder sb = new StringBuilder();
                     JavascriptExecutor js = (JavascriptExecutor) driver;
-                    js.executeScript("alert(\""
-                                   + performanceInformation.get(0).getText() + " "
-                                   + performanceInformation.get(1).getText() + " "
-                                   + performanceInformation.get(2).getText() + " "
-                                   + performanceInformation.get(3).getText() + " "
-                                   + "復活！？"
-                                   + "\")");
+                    sb.append(performanceInformation.get(0).getText())
+                      .append(" ")
+                      .append(performanceInformation.get(1).getText())
+                      .append(" ")
+                      .append(performanceInformation.get(2).getText())
+                      .append(" ")
+                      .append(performanceInformation.get(3).getText())
+                      .append(" ")
+                      .append("復活！？");
+                    System.err.println(sb.toString());
+                    js.executeScript("alert(\"" + sb.toString() + "\")");
                 } else {
                     List<WebElement> performanceInformation = driver.findElements(By.className("plain"));
                     System.out.println(
