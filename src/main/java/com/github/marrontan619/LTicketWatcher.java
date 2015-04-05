@@ -22,12 +22,12 @@ public class LTicketWatcher {
 //        WebDriver driver = new HtmlUnitDriver();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        canBuyTicket(driver);
+        roundTickets(driver);
 //        driver.close();
 
     }
 
-    private static boolean canBuyTicket(WebDriver driver) {
+    private static void roundTickets(WebDriver driver) {
         for (int stageIndex = 0; stageIndex < STAGES; stageIndex++) {
             int buttonIndex = stageIndex - BUTTONS_PER_PAGE < 0 ? stageIndex : stageIndex - BUTTONS_PER_PAGE;
             for (int scheduleIndex = 0; scheduleIndex < STAGES_PER_CITY[stageIndex]; scheduleIndex++) {
@@ -58,7 +58,6 @@ public class LTicketWatcher {
                                    + performanceInformation.get(3).getText() + " "
                                    + "復活！？"
                                    + "\")");
-                    return true;
                 } else {
                     List<WebElement> performanceInformation = driver.findElements(By.className("plain"));
                     System.out.println(
@@ -73,7 +72,6 @@ public class LTicketWatcher {
                 stageIndex = 0;
             }
         }
-        return false;
 
     }
 
