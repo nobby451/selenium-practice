@@ -3,19 +3,19 @@
   <groupId>marrontan619.gmail.com</groupId>
   <artifactId>selenium-practice</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <properties>
+    <chromeDriverPath>${chromeDriverPath}</chromeDriverPath>
+  </properties>
   <build>
-    <plugins>
-      <plugin>
-        <groupId>marrontan619.gmail.com</groupId>
-        <artifactId>selenium-practice</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <configuration>
-          <systemPropertyVariables>
-            <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
-          </systemPropertyVariables>
-        </configuration>
-      </plugin>
-    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>settings.xml.sample</exclude>
+        </excludes>
+      </resource>
+    </resources>
   </build>
   <dependencies>
     <dependency>
