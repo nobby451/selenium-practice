@@ -3,17 +3,11 @@
   <groupId>marrontan619.gmail.com</groupId>
   <artifactId>selenium-practice</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <properties>
-    <chromeDriverPath>${chromeDriverPath}</chromeDriverPath>
-  </properties>
   <build>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
-        <excludes>
-          <exclude>settings.xml.sample</exclude>
-        </excludes>
       </resource>
     </resources>
   </build>
