@@ -14,7 +14,7 @@ public class RedirectTester {
         String line;
         try {
             // Read file like httpd.conf
-            bufferedReader = new BufferedReader(new FileReader("./src/main/resources/sample.txt"));
+            bufferedReader = new BufferedReader(new FileReader("./sample.txt"));
             while ((line = bufferedReader.readLine()) != null) {
                 check(driver, line);
             }
